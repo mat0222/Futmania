@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acceso Fulbito</title>
+  <link rel="icon" type="image/png" href="img/traje.ico" />
+  <link rel="stylesheet" href="estilos/acceso.css" />
+</head>
+<body>
+  <div class="overlay"></div>
+
+  <div class="auth-box">
+    <div class="auth-header">
+      <button id="btn-login" class="active">Iniciar Sesión</button>
+      <button id="btn-register">Registrarse</button>
+    </div>
+
+    <form id="login-form" class="form active">
+      <h2>Iniciar Sesión</h2>
+      <input type="text" id="usuario-login" placeholder="Usuario" required />
+      <input type="password" id="clave-login" placeholder="Contraseña" required />
+      <button type="submit">Entrar</button>
+    </form>
+
+    <form id="register-form" class="form">
+      <h2>Registrarse</h2>
+      <input type="text" id="usuario-register" placeholder="Usuario" required />
+      <input type="password" id="clave-register" placeholder="Contraseña" required />
+      <button type="submit">Crear Cuenta</button>
+    </form>
+  </div>
+
+  <!-- Carta FIFA animada -->
+  <div id="carta-fifa" class="carta oculto">
+    <div class="carta-contenido">
+      <h2 id="carta-nombre">Jugador</h2>
+      <p class="posicion">Manager</p>
+    </div>
+  </div>
+
+  <div class="ball"></div>
+
+  <script src="scripts/acceso.js"></script>
+</body>
+</html>
+

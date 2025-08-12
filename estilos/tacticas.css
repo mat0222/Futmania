@@ -1,0 +1,436 @@
+/* Estilos modernos para tácticas - mismo fondo hermoso */
+.tacticas-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  min-height: 100vh;
+  color: white;
+}
+
+.tacticas-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.tacticas-header h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #22c55e, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tacticas-header p {
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+.cancha-draggable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Cancha principal */
+.cancha-drop {
+  width: 800px;
+  height: 500px;
+  background: linear-gradient(to bottom, #16a34a 0%, #15803d 50%, #166534 100%);
+  position: relative;
+  border-radius: 20px;
+  border: 4px solid #ffffff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.cancha-drop:hover {
+  box-shadow: 0 25px 50px rgba(34, 197, 94, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Líneas de la cancha */
+.cancha-drop::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-50%);
+}
+
+.cancha-drop::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Áreas de la cancha */
+.area-penal-local,
+.area-penal-visitante {
+  position: absolute;
+  width: 150px;
+  height: 200px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.area-penal-local {
+  top: 0;
+}
+
+.area-penal-visitante {
+  bottom: 0;
+}
+
+/* Zona de suplentes */
+.zona-suplementaria {
+  width: 800px;
+  background: rgba(30, 41, 59, 0.8);
+  border: 2px solid #475569;
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.zona-suplementaria:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 25px 50px rgba(59, 130, 246, 0.1);
+}
+
+.zona-suplementaria h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: white;
+  text-align: center;
+  background: linear-gradient(45deg, #3b82f6, #22c55e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.suplentes-drop {
+  min-height: 150px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 2px dashed #475569;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.suplentes-drop:hover {
+  border-color: #3b82f6;
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.suplentes-drop.drag-over {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+  transform: scale(1.02);
+}
+
+/* Jugadores */
+.jugador-draggable {
+  cursor: grab;
+  z-index: 10;
+  transition: all 0.2s ease;
+  position: absolute;
+}
+
+.jugador-draggable:hover {
+  transform: scale(1.1);
+  z-index: 20;
+}
+
+.jugador-draggable:active {
+  cursor: grabbing;
+  transform: scale(1.05) rotate(5deg);
+}
+
+.ficha {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+  border: 2px solid #22c55e;
+  color: #fff;
+  padding: 0.75rem;
+  border-radius: 12px;
+  text-align: center;
+  width: 100px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.ficha::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(34, 197, 94, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.jugador-draggable:hover .ficha::before {
+  opacity: 1;
+}
+
+.jugador-draggable:hover .ficha {
+  border-color: #3b82f6;
+  box-shadow: 0 12px 35px rgba(59, 130, 246, 0.3);
+}
+
+/* Contenido de la ficha */
+.numero {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #22c55e;
+  margin-bottom: 0.25rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.nombre {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.pos {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+/* Posiciones específicas */
+.ficha.portero {
+  border-color: #f59e0b;
+}
+
+.ficha.portero .numero {
+  color: #f59e0b;
+}
+
+.ficha.defensa {
+  border-color: #ef4444;
+}
+
+.ficha.defensa .numero {
+  color: #ef4444;
+}
+
+.ficha.mediocampo {
+  border-color: #3b82f6;
+}
+
+.ficha.mediocampo .numero {
+  color: #3b82f6;
+}
+
+.ficha.delantero {
+  border-color: #22c55e;
+}
+
+.ficha.delantero .numero {
+  color: #22c55e;
+}
+
+/* Efectos de arrastre */
+.zona-drop.drag-over {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+  transform: scale(1.01);
+}
+
+.cancha-drop.drag-over {
+  box-shadow: 0 25px 50px rgba(34, 197, 94, 0.3);
+  border-color: #22c55e;
+}
+
+/* Controles de formación */
+.controles-formacion {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.btn-formacion {
+  background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+.btn-formacion:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+.btn-formacion.active {
+  background: linear-gradient(45deg, #22c55e, #16a34a);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+/* Indicador de jugadores en cancha */
+.contador-jugadores {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contador-jugadores.completo {
+  background: rgba(34, 197, 94, 0.8);
+  border-color: #22c55e;
+}
+
+.contador-jugadores.incompleto {
+  background: rgba(239, 68, 68, 0.8);
+  border-color: #ef4444;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .cancha-drop,
+  .zona-suplementaria {
+    width: 90vw;
+    max-width: 700px;
+  }
+  
+  .cancha-drop {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tacticas-container {
+    padding: 1rem;
+  }
+  
+  .tacticas-header h2 {
+    font-size: 2rem;
+  }
+  
+  .cancha-drop {
+    height: 350px;
+  }
+  
+  .ficha {
+    width: 80px;
+    padding: 0.5rem;
+  }
+  
+  .numero {
+    font-size: 1rem;
+  }
+  
+  .nombre {
+    font-size: 0.7rem;
+  }
+  
+  .controles-formacion {
+    gap: 0.5rem;
+  }
+  
+  .btn-formacion {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes jugadorDrop {
+  0% {
+    transform: scale(1.2) rotate(10deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.tacticas-container {
+  animation: fadeIn 0.5s ease;
+}
+
+.jugador-dropped {
+  animation: jugadorDrop 0.3s ease;
+}
+
+/* Tooltip para jugadores */
+.jugador-tooltip {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 100;
+}
+
+.jugador-draggable:hover .jugador-tooltip {
+  opacity: 1;
+}

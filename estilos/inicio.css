@@ -1,0 +1,98 @@
+
+
+/* === inicio.css === */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  color: #ffffff;
+  display: flex;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+/* SIDEBAR - SIN MODIFICAR */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 100vh;
+  background-color: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+.sidebar .logo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.sidebar .menu {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar .menu li a {
+  background-color: #333;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f0f0f0;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.sidebar .menu li a.active,
+.sidebar .menu li a:hover {
+  background-color: #444;
+}
+
+.sidebar .logout a {
+  background-color: red;
+  color: white;
+  font-size: 18px;
+  border-radius: 50%;
+  padding: 10px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* MAIN CONTENT - SOLO EL FONDO MODERNIZADO */
+.main-content {
+  margin-left: 80px; /* espacio lateral para que no se solape con la sidebar */
+  padding: 30px;
+  width: calc(100% - 80px); /* ocupar el resto del ancho */
+  min-height: 100vh;
+  /* NUEVO FONDO HERMOSO - igual que las otras secciones */
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  box-sizing: border-box;
+}
+
+.main-content h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #00ffcc;
+}
+
+.main-content p {
+  font-size: 16px;
+  color: #e0e0e0; /* Corregí el color que tenía un typo */
+}

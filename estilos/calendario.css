@@ -1,0 +1,329 @@
+
+/* Estilos modernos para el calendario - mismo fondo hermoso de equipos */
+.calendario-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  min-height: 100vh;
+  color: white;
+}
+
+.calendario-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.calendario-header h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #22c55e, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.calendario-header p {
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+#contenedor-calendario {
+  display: flex;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+/* Calendario principal */
+#calendario {
+  flex: 1;
+  min-width: 600px;
+  background: rgba(30, 41, 59, 0.8);
+  border: 2px solid #475569;
+  border-radius: 16px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+#calendario:hover {
+  border-color: #22c55e;
+  box-shadow: 0 25px 50px rgba(34, 197, 94, 0.1);
+}
+
+/* Estilos para FullCalendar */
+.fc {
+  color: white;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+  border-color: #475569;
+}
+
+.fc-theme-standard td, 
+.fc-theme-standard th {
+  border-color: #475569;
+}
+
+.fc-col-header-cell {
+  background: rgba(15, 23, 42, 0.8);
+  color: #94a3b8;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.fc-daygrid-day {
+  background: rgba(30, 41, 59, 0.3);
+  transition: background-color 0.2s ease;
+}
+
+.fc-daygrid-day:hover {
+  background: rgba(34, 197, 94, 0.1);
+  cursor: pointer;
+}
+
+.fc-daygrid-day-number {
+  color: #cbd5e1;
+  font-weight: 500;
+  padding: 0.5rem;
+}
+
+.fc-day-today {
+  background: rgba(34, 197, 94, 0.2) !important;
+  border: 2px solid #22c55e !important;
+}
+
+.fc-day-today .fc-daygrid-day-number {
+  color: #22c55e;
+  font-weight: bold;
+}
+
+/* Eventos del calendario */
+.fc-event {
+  background: linear-gradient(45deg, #3b82f6, #1d4ed8) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 2px 6px !important;
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3) !important;
+  transition: all 0.2s ease !important;
+}
+
+.fc-event:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+}
+
+.fc-event-title {
+  font-weight: bold !important;
+}
+
+/* Botones del header */
+.fc-button {
+  background: linear-gradient(45deg, #22c55e, #16a34a) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 0.5rem 1rem !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3) !important;
+}
+
+.fc-button:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4) !important;
+}
+
+.fc-button:disabled {
+  opacity: 0.5 !important;
+  transform: none !important;
+}
+
+.fc-toolbar-title {
+  color: white !important;
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+}
+
+/* Formulario lateral */
+#formulario-lateral {
+  width: 350px;
+  background: rgba(30, 41, 59, 0.8);
+  border: 2px solid #475569;
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  height: fit-content;
+}
+
+#formulario-lateral:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 25px 50px rgba(59, 130, 246, 0.1);
+}
+
+#form-titulo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: white;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #475569;
+  background: linear-gradient(45deg, #3b82f6, #22c55e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+#formulario-lateral label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#formulario-lateral input {
+  width: 100%;
+  padding: 0.75rem;
+  background: rgba(15, 23, 42, 0.8);
+  color: white;
+  border: 2px solid #475569;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+#formulario-lateral input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: rgba(15, 23, 42, 1);
+}
+
+#formulario-lateral input::placeholder {
+  color: #64748b;
+}
+
+#formulario-lateral button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#formulario-lateral button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+#formulario-lateral button:active {
+  transform: translateY(0);
+}
+
+/* Indicador de modo edición */
+.modo-edicion #form-titulo {
+  background: linear-gradient(45deg, #f59e0b, #d97706);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.modo-edicion #formulario-lateral {
+  border-color: #f59e0b;
+  box-shadow: 0 25px 50px rgba(245, 158, 11, 0.1);
+}
+
+.modo-edicion button {
+  background: linear-gradient(45deg, #f59e0b, #d97706) !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3) !important;
+}
+
+.modo-edicion button:hover {
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4) !important;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  #contenedor-calendario {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  #calendario {
+    min-width: auto;
+  }
+  
+  #formulario-lateral {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .calendario-container {
+    padding: 1rem;
+  }
+  
+  .calendario-header h2 {
+    font-size: 2rem;
+  }
+  
+  #calendario {
+    padding: 1rem;
+  }
+  
+  #formulario-lateral {
+    padding: 1.5rem;
+  }
+}
+
+/* Animación de carga */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.calendario-container {
+  animation: fadeIn 0.5s ease;
+}
+
+/* Efectos adicionales */
+.fc-event.partido-ganado {
+  background: linear-gradient(45deg, #22c55e, #16a34a) !important;
+}
+
+.fc-event.partido-perdido {
+  background: linear-gradient(45deg, #ef4444, #dc2626) !important;
+}
+
+.fc-event.partido-empatado {
+  background: linear-gradient(45deg, #f59e0b, #d97706) !important;
+}

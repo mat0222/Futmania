@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fulbito Manager</title>
+
+  <link rel="icon" type="image/png" href="img/traje.ico" />
+  <link rel="stylesheet" href="estilos/inicio.css" />
+  <link rel="stylesheet" href="estilos/notas.css" />
+  <link rel="stylesheet" href="estilos/calendario.css" />
+  <link rel="stylesheet" href="estilos/tacticas.css" />
+  <link rel="stylesheet" href="estilos/estadisticas.css" />
+  <link rel="stylesheet" href="estilos/mensajes.css" />
+  <link rel="stylesheet" href="estilos/equipos.css" />
+  <link rel="stylesheet" href="estilos/jugadores.css" />
+  <link rel="stylesheet" href="estilos/tranferencias.css" />
+  <link rel="stylesheet" href="estilos/configuracion.css" />
+
+  <!-- FullCalendar -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
+  
+</head>
+<body>
+  <div class="container">
+    <nav class="sidebar">
+      <div class="logo">
+        <img src="img/liga-profesional-de-futbol-seeklogo.png" alt="Logo Fulbito">
+      </div>
+      <ul class="menu">
+        <li><a href="#" id="link-jugadores" title="Jugadores">🏃</a></li>
+        <li><a href="#" id="link-equipos" title="Equipos">🏟️</a></li>
+        <li><a href="#" id="link-calendario" title="Calendario">📅</a></li>
+        <li><a href="#" id="link-tacticas" title="Tácticas">🧠</a></li>
+        <li><a href="#" id="link-notas" title="Notas del DT">📝</a></li>
+        <li><a href="#" id="link-estadisticas" title="Estadísticas">📊</a></li>
+        <li><a href="#" id="link-mensajes" title="Mensajes">💬</a></li>
+        <li><a href="#" id="link-transferencias" title="Transferencias">💵</a></li>
+        <li><a href="#" id="link-configuracion" title="Configuración">⚙️</a></li>
+        
+      </ul>
+      <div class="logout">
+        <a href="http://localhost/fulbito/acceso.html" title="Cerrar sesión">⏻</a>
+      </div>
+    </nav>
+
+    <main id="contenido" class="main-content">
+      <h2>Bienvenido director técnico</h2>
+      <p>Tu equipo te espera ⚽</p>
+    </main>
+  </div>
+
+  <script src="scripts/calendario.js"></script>
+  <script src="scripts/tacticas.js"></script>
+  <script src="scripts/notas.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="scripts/estadisticas.js"></script>
+  <script src="scripts/mensajes.js"></script>
+  <script src="scripts/equipos.js"></script>
+  <script src="scripts/jugadores.js"></script>
+  <script src="scripts/tranferencias.js"></script>
+  <script src="scripts/configuracion.js"></script>
+  <script src="inicio.js"></script>
+</body>
+</html>
