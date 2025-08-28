@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 try {
     require_once 'conexion.php';
     
-    $sql = "SELECT f.jugador_id, f.x, f.y, f.zona, j.numero, j.nombre, j.posicion
+    $sql = "SELECT f.jugador_id, f.x_pos as x, f.y_pos as y, f.es_titular, j.numero, j.nombre, j.posicion
             FROM formaciones f
             JOIN jugadores j ON j.id = f.jugador_id";
     $res = $conn->query($sql);

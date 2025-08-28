@@ -238,12 +238,63 @@ function renderConfiguracion() {
           btn.textContent = '⏳ Guardando...';
           btn.disabled = true;
           
-          await fetch('editar_jugador.php', {
-          method: 'POST',
-          body: new URLSearchParams({ id, numero, nombre, posicion, edad, nacionalidad, goles, asistencias, partidos, lesiones })
-          });
-                  
-          cargarJugadoresTabla();
+          try {
+            const response = await fetch('editar_jugador.php', {
+              method: 'POST',
+              body: new URLSearchParams({ id, numero, nombre, posicion, edad, nacionalidad, goles, asistencias, partidos, lesiones })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+              btn.textContent = '✅ Guardado';
+              btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+              
+              // Mostrar mensaje de éxito
+              const mensaje = document.createElement('div');
+              mensaje.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #10b981; color: white; padding: 15px; border-radius: 8px; z-index: 1000;';
+              mensaje.textContent = '✅ ' + (result.message || 'Jugador actualizado correctamente');
+              document.body.appendChild(mensaje);
+              
+              setTimeout(() => {
+                mensaje.remove();
+                btn.textContent = '💾 Guardar';
+                btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                btn.disabled = false;
+              }, 2000);
+              
+            } else {
+              btn.textContent = '❌ Error';
+              btn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+              
+              // Mostrar mensaje de error
+              alert('Error al guardar: ' + (result.message || 'Error desconocido'));
+              
+              setTimeout(() => {
+                btn.textContent = '💾 Guardar';
+                btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                btn.disabled = false;
+              }, 2000);
+            }
+            
+            // Recargar la tabla después de un breve delay
+            setTimeout(() => {
+              cargarJugadoresTabla();
+            }, 500);
+            
+          } catch (error) {
+            console.error('Error al guardar:', error);
+            btn.textContent = '❌ Error';
+            btn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+            
+            alert('Error de conexión: ' + error.message);
+            
+            setTimeout(() => {
+              btn.textContent = '💾 Guardar';
+              btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+              btn.disabled = false;
+            }, 2000);
+          }
         });
       });
     } catch (error) {

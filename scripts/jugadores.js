@@ -77,10 +77,20 @@ async function cargarJugadores() {
       const res = await fetch('obtener_jugadores.php');
       if (res.ok) {
         const data = await res.json();
+        console.log('Datos recibidos de PHP:', data); // Debug
+        
         // Handle both old and new response formats
-        jugadoresData = data.success ? data.jugadores : data;
+        if (data.success && data.jugadores) {
+          jugadoresData = data.jugadores;
+          console.log('Jugadores cargados desde PHP:', jugadoresData.length);
+        } else if (Array.isArray(data)) {
+          jugadoresData = data;
+          console.log('Jugadores cargados desde PHP (formato array):', jugadoresData.length);
+        } else {
+          throw new Error('Formato de datos inválido');
+        }
       } else {
-        throw new Error('Error en la respuesta del servidor');
+        throw new Error('Error en la respuesta del servidor: ' + res.status);
       }
     } catch (error) {
       console.warn('No se pudo cargar desde PHP, usando datos de ejemplo:', error);
@@ -185,6 +195,7 @@ async function cargarJugadores() {
       ];
     }
     
+    console.log('Total de jugadores cargados:', jugadoresData.length);
     jugadoresFiltrados = [...jugadoresData];
     actualizarEstadisticas();
     mostrarJugadores();

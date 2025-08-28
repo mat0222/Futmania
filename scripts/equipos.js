@@ -2,7 +2,7 @@
 const equiposData = [
   {
     id: 1,
-    nombre: "Club Sablazo De Legui",
+    nombre: "Club Deportivo Cabaña",
     escudo: "img/Logo escudo de club de futbol deportivo profesional azul.jpg",
     emoji: "⚽", // Emoji de respaldo
     estadio: "Cabaña",
@@ -15,7 +15,7 @@ const equiposData = [
   },
   {
     id: 2,
-    nombre: "Paris Saint Aleman",
+    nombre: "Club Deportivo Poli",
     escudo: "img/Logo escudo de club de futbol deportivo profesional azul.jpg",
     emoji: "⚽", // Emoji de respaldo
     estadio: "Poli Deportivo",

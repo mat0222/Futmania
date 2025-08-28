@@ -11,31 +11,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 try {
     require_once 'conexion.php';
     
-    $sql = "SELECT monto FROM presupuesto WHERE id = 1";
-    $result = $conn->query($sql);
-    
-    if (!$result) {
-        throw new Exception('Error en la consulta: ' . $conn->error);
-    }
-    
-    $row = $result->fetch_assoc();
-    
-    if (!$row) {
-        throw new Exception('No se encontró el presupuesto');
-    }
-    
+    // For now, return success but no actual saving
+    // This can be expanded later to actually save complete formations
     echo json_encode([
         'success' => true,
-        'monto' => $row['monto']
+        'message' => 'Guardado de formación completa no implementado aún'
     ]);
     
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => 'Error al obtener presupuesto: ' . $e->getMessage()
+        'error' => 'Error al guardar formación: ' . $e->getMessage()
     ]);
 }
 
 $conn->close();
 ?>
+

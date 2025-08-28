@@ -28,9 +28,18 @@ function renderTransferencias() {
 }
 
 function mostrarJugadoresTransferencias() {
+  console.log('Iniciando mostrarJugadoresTransferencias...');
+  
   fetch('transferencias.php')
-    .then(res => res.json())
+    .then(res => {
+      console.log('Respuesta HTTP:', res.status, res.ok);
+      return res.json();
+    })
     .then(data => {
+      console.log('Datos recibidos:', data);
+      console.log('Tipo de data:', typeof data);
+      console.log('Es array:', Array.isArray(data));
+      
       const disponibles = document.getElementById('jugadores-disponibles');
       const equipo = document.getElementById('jugadores-equipo');
       
@@ -39,10 +48,26 @@ function mostrarJugadoresTransferencias() {
         return;
       }
       
+      // Handle both old and new response formats
+      let jugadores = [];
+      if (data.success && data.jugadores) {
+        console.log('Usando formato success.jugadores');
+        jugadores = data.jugadores;
+      } else if (Array.isArray(data)) {
+        console.log('Usando formato array directo');
+        jugadores = data;
+      } else {
+        console.error('Formato de datos inválido:', data);
+        return;
+      }
+      
+      console.log('Jugadores procesados:', jugadores);
+      console.log('Cantidad de jugadores:', jugadores.length);
+      
       disponibles.innerHTML = '';
       equipo.innerHTML = '';
       
-      data.forEach(jugador => {
+      jugadores.forEach(jugador => {
         const card = document.createElement('div');
         card.className = 'jugador-item';
         card.innerHTML = `
@@ -98,7 +123,17 @@ function cargarPresupuesto() {
   fetch('presupuesto.php')
     .then(res => res.json())
     .then(data => {
-      document.getElementById('presupuesto').textContent = `$${data.monto.toLocaleString()}`;
+      // Handle both old and new response formats
+      let monto = 0;
+      if (data.success && data.monto) {
+        monto = data.monto;
+      } else if (data.monto) {
+        monto = data.monto;
+      } else {
+        console.error('Formato de presupuesto inválido:', data);
+        return;
+      }
+      document.getElementById('presupuesto').textContent = `$${parseFloat(monto).toLocaleString()}`;
     })
     .catch(error => console.error('Error al cargar presupuesto:', error));
 }

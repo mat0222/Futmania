@@ -11,22 +11,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 try {
     require_once 'conexion.php';
     
-    // Consulta actualizada con todos los campos de la tabla jugadores
+    // Consulta actualizada con los campos reales de la tabla jugadores y estadísticas
     $result = $conn->query("
         SELECT 
-            id, 
-            numero, 
-            nombre, 
-            posicion, 
-            edad, 
-            nacionalidad, 
-            goles, 
-            asistencias, 
-            partidos, 
-            valor_mercado, 
-            en_equipo 
-        FROM jugadores 
-        ORDER BY numero ASC
+            j.id, 
+            j.numero, 
+            j.nombre, 
+            j.posicion, 
+            j.edad, 
+            j.nacionalidad, 
+            j.partidos_jugados,
+            IFNULL(e.goles, 0) as goles,
+            IFNULL(e.asistencias, 0) as asistencias,
+            IFNULL(e.partidos, 0) as partidos,
+            IFNULL(e.lesiones, 0) as lesiones
+        FROM jugadores j
+        LEFT JOIN estadisticas e ON j.id = e.jugador_id
+        ORDER BY j.numero ASC
     ");
     
     if (!$result) {
@@ -36,6 +37,10 @@ try {
     $jugadores = [];
     
     while ($row = $result->fetch_assoc()) {
+        // Agregar campos faltantes con valores por defecto
+        $row['valor_mercado'] = 1000000; // Valor por defecto
+        $row['en_equipo'] = true; // Por defecto en equipo
+        
         // Convertimos en_equipo a booleano verdadero/falso para el JSON
         $row['en_equipo'] = (bool)$row['en_equipo'];
         $jugadores[] = $row;

@@ -345,15 +345,28 @@ function actualizarVistaIndividual(jugador) {
 }
 
 function actualizarVistaComparacion() {
-  const ctx = document.getElementById('graficoComparacion').getContext('2d');
-  if (graficoComparacion) graficoComparacion.destroy();
-  
-  // Tomar los top 5 goleadores
-  const topGoleadores = [...estadisticasJugadoresData]
-    .sort((a, b) => b.goles - a.goles)
-    .slice(0, 5);
-  
-  graficoComparacion = new Chart(ctx, {
+  try {
+    const canvas = document.getElementById('graficoComparacion');
+    if (!canvas) {
+      console.error('Canvas graficoComparacion no encontrado');
+      return;
+    }
+    
+    const ctx = canvas.getContext('2d');
+    if (graficoComparacion) graficoComparacion.destroy();
+    
+    // Verificar que tenemos datos válidos
+    if (!Array.isArray(estadisticasJugadoresData) || estadisticasJugadoresData.length === 0) {
+      console.warn('No hay datos de jugadores para comparar');
+      return;
+    }
+    
+    // Tomar los top 5 goleadores
+    const topGoleadores = [...estadisticasJugadoresData]
+      .sort((a, b) => (parseInt(b.goles) || 0) - (parseInt(a.goles) || 0))
+      .slice(0, 5);
+    
+    graficoComparacion = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: topGoleadores.map(j => `${j.nombre} (#${j.numero})`),
@@ -394,43 +407,59 @@ function actualizarVistaComparacion() {
   
   // Llenar tabla
   const tbody = document.querySelector('#tabla-comparacion tbody');
-  tbody.innerHTML = '';
-  
-  if (Array.isArray(estadisticasJugadoresData)) {
-    estadisticasJugadoresData.forEach(jugador => {
-    const row = tbody.insertRow();
-    const promedioGoles = jugador.partidos > 0 ? (jugador.goles / jugador.partidos).toFixed(2) : '0.00';
+  if (tbody) {
+    tbody.innerHTML = '';
     
-    row.innerHTML = `
-      <td class="jugador-nombre">${jugador.nombre}</td>
-      <td>${jugador.posicion}</td>
-      <td class="stat-destacada">${jugador.goles}</td>
-      <td>${jugador.asistencias}</td>
-      <td>${jugador.partidos}</td>
-      <td>${promedioGoles}</td>
-    `;
-    });
+    if (Array.isArray(estadisticasJugadoresData)) {
+      estadisticasJugadoresData.forEach(jugador => {
+        const row = tbody.insertRow();
+        const promedioGoles = jugador.partidos > 0 ? (jugador.goles / jugador.partidos).toFixed(2) : '0.00';
+        
+        row.innerHTML = `
+          <td class="jugador-nombre">${jugador.nombre}</td>
+          <td>${jugador.posicion}</td>
+          <td class="stat-destacada">${jugador.goles}</td>
+          <td>${jugador.asistencias}</td>
+          <td>${jugador.partidos}</td>
+          <td>${promedioGoles}</td>
+        `;
+      });
+    }
+  }
+  } catch (error) {
+    console.error('Error al actualizar vista de comparación:', error);
   }
 }
 
 function actualizarVistaEquipo() {
-  // Estadísticas por posición
-  const posiciones = {};
-  if (Array.isArray(estadisticasJugadoresData)) {
-    estadisticasJugadoresData.forEach(jugador => {
-    if (!posiciones[jugador.posicion]) {
-      posiciones[jugador.posicion] = { goles: 0, asistencias: 0, jugadores: 0 };
+  try {
+    // Verificar que tenemos datos válidos
+    if (!Array.isArray(estadisticasJugadoresData) || estadisticasJugadoresData.length === 0) {
+      console.warn('No hay datos de jugadores para mostrar estadísticas del equipo');
+      return;
     }
-    posiciones[jugador.posicion].goles += parseInt(jugador.goles);
-    posiciones[jugador.posicion].asistencias += parseInt(jugador.asistencias);
-    posiciones[jugador.posicion].jugadores++;
+    
+    // Estadísticas por posición
+    const posiciones = {};
+    estadisticasJugadoresData.forEach(jugador => {
+      if (!posiciones[jugador.posicion]) {
+        posiciones[jugador.posicion] = { goles: 0, asistencias: 0, jugadores: 0 };
+      }
+      posiciones[jugador.posicion].goles += parseInt(jugador.goles) || 0;
+      posiciones[jugador.posicion].asistencias += parseInt(jugador.asistencias) || 0;
+      posiciones[jugador.posicion].jugadores++;
     });
-  }
-  
-  const ctx = document.getElementById('graficoEquipo').getContext('2d');
-  if (graficoEquipo) graficoEquipo.destroy();
-  
-  graficoEquipo = new Chart(ctx, {
+    
+    const canvas = document.getElementById('graficoEquipo');
+    if (!canvas) {
+      console.error('Canvas graficoEquipo no encontrado');
+      return;
+    }
+    
+    const ctx = canvas.getContext('2d');
+    if (graficoEquipo) graficoEquipo.destroy();
+    
+    graficoEquipo = new Chart(ctx, {
     type: 'doughnut',
     data: {
       labels: Object.keys(posiciones),
@@ -499,17 +528,33 @@ function actualizarVistaEquipo() {
       }
     }
   });
+  } catch (error) {
+    console.error('Error al actualizar vista del equipo:', error);
+  }
 }
 
 function actualizarVistaRendimiento() {
-  const ctx = document.getElementById('graficoRendimiento').getContext('2d');
-  if (graficoRendimiento) graficoRendimiento.destroy();
-  
-  // Datos simulados de rendimiento mensual
-  const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-  const totalGoles = Array.isArray(estadisticasJugadoresData) ? estadisticasJugadoresData.reduce((sum, j) => sum + parseInt(j.goles), 0) : 0;
-  
-  graficoRendimiento = new Chart(ctx, {
+  try {
+    // Verificar que tenemos datos válidos
+    if (!Array.isArray(estadisticasJugadoresData) || estadisticasJugadoresData.length === 0) {
+      console.warn('No hay datos de jugadores para mostrar rendimiento');
+      return;
+    }
+    
+    const canvas = document.getElementById('graficoRendimiento');
+    if (!canvas) {
+      console.error('Canvas graficoRendimiento no encontrado');
+      return;
+    }
+    
+    const ctx = canvas.getContext('2d');
+    if (graficoRendimiento) graficoRendimiento.destroy();
+    
+    // Datos simulados de rendimiento mensual
+    const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    const totalGoles = estadisticasJugadoresData.reduce((sum, j) => sum + (parseInt(j.goles) || 0), 0);
+    
+    graficoRendimiento = new Chart(ctx, {
     type: 'line',
     data: {
       labels: meses,
@@ -553,6 +598,9 @@ function actualizarVistaRendimiento() {
       }
     }
   });
+  } catch (error) {
+    console.error('Error al actualizar vista de rendimiento:', error);
+  }
 }
 
 function actualizarCardsResumen() {
