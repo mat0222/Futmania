@@ -220,9 +220,15 @@ function renderConfiguracion() {
         });
       });
 
-      // Guardar edición
+      // Guardar edición - Prevenir múltiples clics
       document.querySelectorAll('.btn-guardar').forEach(btn => {
-        btn.addEventListener('click', async () => {
+        btn.addEventListener('click', async (e) => {
+          // Prevenir múltiples clics
+          if (btn.disabled) {
+            e.preventDefault();
+            return;
+          }
+          
           const row = btn.closest('tr');
           const id = btn.dataset.id;
           const numero = row.querySelector('.edit-numero').value;
@@ -234,6 +240,12 @@ function renderConfiguracion() {
           const asistencias = row.querySelector('.edit-asistencias').value;
           const partidos = row.querySelector('.edit-partidos').value;
           const lesiones = row.querySelector('.edit-lesiones').value;
+          
+          // Validar datos básicos
+          if (!id || !nombre || !posicion || numero === null || numero === '') {
+            alert('Por favor complete todos los campos obligatorios');
+            return;
+          }
           
           btn.textContent = '⏳ Guardando...';
           btn.disabled = true;
@@ -277,10 +289,9 @@ function renderConfiguracion() {
               }, 2000);
             }
             
-            // Recargar la tabla después de un breve delay
-            setTimeout(() => {
-              cargarJugadoresTabla();
-            }, 500);
+            // NO recargar automáticamente la tabla para evitar duplicaciones
+            // Solo marcar la fila como actualizada
+            row.classList.add('updated');
             
           } catch (error) {
             console.error('Error al guardar:', error);

@@ -11,7 +11,7 @@ if (!$usuario || !$clave) {
 }
 
 // Buscar usuario
-$stmt = $conn->prepare("SELECT id, clave FROM usuarios WHERE usuario = ?");
+$stmt = $conn->prepare("SELECT id, clave FROM usuarios WHERE username = ?");
 $stmt->bind_param("s", $usuario);
 $stmt->execute();
 $stmt->store_result();

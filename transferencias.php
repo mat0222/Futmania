@@ -11,7 +11,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 try {
     require_once 'conexion.php';
     
-    $sql = "SELECT id, nombre, posicion, goles, asistencias, partidos_jugados FROM jugadores";
+    $sql = "
+        SELECT 
+            j.id, 
+            j.numero,
+            j.nombre, 
+            j.posicion, 
+            j.edad,
+            j.nacionalidad,
+            j.partidos_jugados,
+            j.en_equipo,
+            IFNULL(e.goles, 0) as goles,
+            IFNULL(e.asistencias, 0) as asistencias,
+            IFNULL(e.partidos, 0) as partidos,
+            IFNULL(e.lesiones, 0) as lesiones
+        FROM jugadores j
+        LEFT JOIN estadisticas e ON j.id = e.jugador_id
+        ORDER BY j.numero ASC
+    ";
     $result = $conn->query($sql);
     
     if (!$result) {
@@ -21,9 +38,7 @@ try {
     $jugadores = [];
     while ($row = $result->fetch_assoc()) {
         // Agregar campos faltantes con valores por defecto
-        $row['valor_mercado'] = 1000000; // Valor por defecto
-        $row['en_equipo'] = true; // Por defecto en equipo
-        $row['partidos'] = $row['partidos_jugados']; // Mapear partidos_jugados a partidos
+        $row['valor_mercado'] = rand(500000, 5000000); // Valor aleatorio entre 500k y 5M
         $jugadores[] = $row;
     }
     

@@ -92,14 +92,24 @@ function mostrarJugadoresTransferencias() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: jugador.id, valor: jugador.valor_mercado })
           })
-          .then(res => res.text())
+          .then(res => res.json())
           .then(result => {
             card.classList.remove('loading');
-            if (result === 'ok') {
+            if (result.success) {
+              // Mostrar mensaje de éxito
+              const mensaje = document.createElement('div');
+              mensaje.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #10b981; color: white; padding: 15px; border-radius: 8px; z-index: 1000;';
+              mensaje.textContent = '✅ ' + result.message;
+              document.body.appendChild(mensaje);
+              
+              setTimeout(() => {
+                mensaje.remove();
+              }, 3000);
+              
               mostrarJugadoresTransferencias();
               cargarPresupuesto();
             } else {
-              alert(result);
+              alert('Error: ' + result.message);
             }
           })
           .catch(error => {
@@ -137,3 +147,6 @@ function cargarPresupuesto() {
     })
     .catch(error => console.error('Error al cargar presupuesto:', error));
 }
+
+// Exportar función
+window.renderTransferencias = renderTransferencias;

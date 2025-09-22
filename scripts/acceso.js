@@ -41,13 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
       carta.classList.remove('oculto');
       carta.classList.add('mostrar');
 
-      // Sonido
-      sonidoEstadio.play();
+      // Sonido (comentado por ahora)
+      // sonidoEstadio.play();
 
-      // Redirigir luego de 3s
+      // Redirigir luego de 1s
       setTimeout(() => {
-        window.location.href = 'http://localhost/fulbito/inicio.html';
-      }, 3000);
+        window.location.href = 'index.html';
+      }, 1000);
     }
   });
 

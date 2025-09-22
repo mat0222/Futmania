@@ -14,7 +14,7 @@ if (!$usuario || !$clave) {
 $claveHash = password_hash($clave, PASSWORD_DEFAULT);
 
 // Verificar si el usuario ya existe
-$stmt = $conn->prepare("SELECT id FROM usuarios WHERE usuario = ?");
+$stmt = $conn->prepare("SELECT id FROM usuarios WHERE username = ?");
 $stmt->bind_param("s", $usuario);
 $stmt->execute();
 $stmt->store_result();
@@ -25,7 +25,7 @@ if ($stmt->num_rows > 0) {
 }
 
 // Insertar nuevo usuario
-$stmt = $conn->prepare("INSERT INTO usuarios (usuario, clave) VALUES (?, ?)");
+$stmt = $conn->prepare("INSERT INTO usuarios (username, clave) VALUES (?, ?)");
 $stmt->bind_param("ss", $usuario, $claveHash);
 $stmt->execute();
 
